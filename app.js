@@ -4,7 +4,7 @@ const componentInitializers = {}; // Store component initialization functions
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js') // Ensure path is correct
+        navigator.serviceWorker.register('sw.js') // Ensure path is correct
             .then(registration => {
                 console.log('ServiceWorker registration successful with scope: ', registration.scope);
             })

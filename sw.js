@@ -2,22 +2,21 @@
 
 const CACHE_NAME = 'gst-billing-app-v1';
 const urlsToCache = [
-    '/', // Or '/index.html' if that's your start_url
-    '/index.html',
-    '/app.js',
-    '/manifest.json',
-    '/styles/animations.css',
+    'index.html',
+    'app.js',
+    'manifest.json',
+    'styles/animations.css',
     // Add paths to your component HTML, JS, CSS files
-    '/components/sales/sales.html',
-    '/components/sales/sales.js',
-    '/components/sales/sales.css',
-    '/components/purchases/purchases.html',
-    '/components/purchases/purchases.js',
-    '/components/purchases/purchases.css',
+    'components/sales/sales.html',
+    'components/sales/sales.js',
+    'components/sales/sales.css',
+    'components/purchases/purchases.html',
+    'components/purchases/purchases.js',
+    'components/purchases/purchases.css',
     // ... add all other components ...
     // Add paths to your icons
-    '/icons/icon-192x192.png',
-    '/icons/icon-512x512.png'
+    'icons/icon-192x192.png',
+    'icons/icon-512x512.png'
     // Add Tailwind CSS CDN if you want to cache it (can be tricky with CDNs)
     // 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css'
 ];
