@@ -1,0 +1,60 @@
+/* components/purchases/purchases.css */
+
+/* New Seller Form - default hidden state */
+#new-seller-form {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-width: 0;
+    transition: max-height 0.3s ease-out, opacity 0.2s ease-out, margin-top 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out, border-width 0.3s ease-out;
+}
+/* New Seller Form - shown state */
+#new-seller-form.slide-down {
+    max-height: 300px; /* Adjust as needed for content */
+    opacity: 1;
+    margin-top: 1.5rem !important; /* Tailwind's mt-6 */
+    padding-top: 1rem; /* Tailwind's p-4 */
+    padding-bottom: 1rem;
+    border-width: 1px; /* Restore border based on your design */
+}
+
+
+/* New Item Form - default hidden state */
+#new-item-form-section {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-width: 0;
+    transition: opacity 0.2s ease-out, max-height 0.3s ease-out, margin-bottom 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out, border-width 0.3s ease-out;
+}
+/* New Item Form - shown state */
+#new-item-form-section.fade-in-form {
+    opacity: 1;
+    max-height: 1000px; /* Large enough for content */
+    overflow: visible; /* Allow shadows, etc. */
+    margin-bottom: 1.5rem; /* Add some space when visible */
+    padding-top: 1.5rem; /* Tailwind's p-6 */
+    padding-bottom: 1.5rem;
+    border-width: 1px;
+}
+
+
+/* Animations for purchase success popup */
+#purchase-success-popup { /* Base state for the overlay */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+#purchase-success-popup.fade-in { /* When overlay should be visible */
+    opacity: 1;
+}
+
+#purchase-success-popup-content { /* Base state for the modal content itself */
+    /* opacity: 0; and scale(0.95) are applied by JS directly via Tailwind classes */
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}

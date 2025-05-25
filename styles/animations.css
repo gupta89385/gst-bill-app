@@ -1,0 +1,75 @@
+/* animations.css */
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.sidebar {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* styles/animations.css */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-enter {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* styles/animations.css */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* For main content loading */
+.fade-enter {
+    opacity: 0;
+    transform: translateY(10px);
+}
+.fade-enter-active {
+    animation: fadeIn 0.3s ease-out forwards; /* Shortened duration */
+}
+
+
+/* Animation for the new buyer form reveal */
+#new-buyer-form.slide-down {
+    max-height: 500px; /* Adjust as needed */
+    opacity: 1;
+    overflow: hidden;
+    margin-top: 1.5rem; /* Tailwind's mt-6 */
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.4s ease-in-out;
+}
+
+#new-buyer-form { /* Default hidden state */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0 !important;
+    transition: max-height 0.3s ease-out, opacity 0.2s ease-out, margin-top 0.3s ease-out;
+}
+
+/* Animations for success popup */
+#success-popup.fade-in {
+    opacity: 1;
+}
+#success-popup.fade-in #success-popup-content {
+    transform: scale(1);
+    opacity: 1;
+}

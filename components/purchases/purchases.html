@@ -1,0 +1,208 @@
+<div id="purchases-screen" class="space-y-6 p-2 md:p-4 max-w-4xl mx-auto">
+    <header class="mb-6">
+        <h2 class="text-3xl font-bold text-gray-800 border-b pb-2">Create New Purchase</h2>
+    </header>
+
+    <!-- Seller Information Section -->
+    <section id="seller-section" class="p-6 bg-white rounded-lg shadow-lg">
+        <h3 class="text-xl font-semibold text-gray-700 mb-4">Seller/Distributor Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+            <!-- Custom Seller Select Dropdown -->
+            <div>
+                <label id="seller-custom-select-label" class="block text-sm font-medium text-gray-700 mb-1">Select Seller:</label>
+                <div class="relative mt-1">
+                    <button type="button" id="seller-custom-select-button"
+                            class="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            aria-haspopup="listbox" aria-expanded="false" aria-labelledby="seller-custom-select-label seller-custom-select-button">
+                        <span class="block truncate" id="seller-custom-select-selected-text">-- Select Seller --</span>
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" />
+                            </svg>
+                        </span>
+                    </button>
+                    <ul id="seller-custom-select-options"
+                        class="absolute z-20 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm hidden"
+                        tabindex="-1" role="listbox" aria-labelledby="seller-custom-select-label">
+                    </ul>
+                </div>
+                <input type="hidden" id="seller-select-value" name="seller_id_actual_value">
+            </div>
+            <div id="purchase-date-section">
+                <label for="purchase-date" class="block text-sm font-medium text-gray-700 mb-1">Purchase Date:</label>
+                <input type="date" id="purchase-date" name="purchase-date" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div class="md:col-span-2"> <!-- Seller Invoice Number -->
+                <label for="seller-invoice-number" class="block text-sm font-medium text-gray-700 mb-1">Seller Invoice No.:</label>
+                <input type="text" id="seller-invoice-number" name="seller-invoice-number" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+        </div>
+
+        <!-- New Seller Form (Default state hidden by CSS, shown by 'slide-down' class) -->
+        <div id="new-seller-form" class="p-4 border border-blue-200 rounded-md bg-blue-50 space-y-3">
+            <h4 class="text-md font-semibold text-blue-700">Add New Seller Details:</h4>
+            <div>
+                <label for="new-seller-name" class="block text-sm font-medium text-gray-700">Seller Name:</label>
+                <input type="text" id="new-seller-name" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm">
+            </div>
+            <div>
+                <label for="new-seller-gstin" class="block text-sm font-medium text-gray-700">GSTIN (Optional):</label>
+                <input type="text" id="new-seller-gstin" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm">
+            </div>
+            <button id="save-new-seller-btn" type="button" class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">Save Seller</button>
+            <button id="cancel-new-seller-btn" type="button" class="ml-2 inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50">Cancel</button>
+        </div>
+    </section>
+
+    <!-- New Item Form (Default state hidden by CSS, shown by 'fade-in-form' class) -->
+    <section id="new-item-form-section" class="p-6 bg-green-50 border border-green-300 rounded-lg shadow-lg">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold text-green-700">Add New Item to Inventory</h3>
+            <button id="cancel-add-new-item-btn" type="button" class="text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div>
+                <label for="new-item-name" class="block text-sm font-medium text-gray-700">Item Name:</label>
+                <input type="text" id="new-item-name" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm">
+            </div>
+            <div>
+                <label for="new-item-hsn" class="block text-sm font-medium text-gray-700">HSN Code:</label>
+                <input type="text" id="new-item-hsn" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm">
+            </div>
+            <div>
+                <label for="new-item-mrp" class="block text-sm font-medium text-gray-700">MRP (₹):</label>
+                <input type="number" id="new-item-mrp" step="0.01" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm">
+            </div>
+            <div>
+                <label for="new-item-buying-price" class="block text-sm font-medium text-gray-700">Buying Price (₹):</label>
+                <input type="number" id="new-item-buying-price" step="0.01" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm">
+            </div>
+            <div>
+                <label for="new-item-selling-price" class="block text-sm font-medium text-gray-700">Selling Price (₹):</label>
+                <input type="number" id="new-item-selling-price" step="0.01" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm">
+            </div>
+            <!-- Custom Dropdown for GST Rate -->
+            <div>
+                <label id="new-item-gst-select-label" class="block text-sm font-medium text-gray-700 mb-1">GST Rate (%):</label>
+                <div class="relative mt-1">
+                    <button type="button" id="new-item-gst-select-button"
+                            class="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            aria-haspopup="listbox" aria-expanded="false">
+                        <span class="block truncate" id="new-item-gst-select-selected-text">18%</span>
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" /></svg>
+                        </span>
+                    </button>
+                    <ul id="new-item-gst-select-options"
+                        class="absolute z-30 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm hidden"
+                        tabindex="-1" role="listbox">
+                    </ul>
+                </div>
+                <input type="hidden" id="new-item-gst-select-value" value="0.18">
+            </div>
+        </div>
+        <div class="mt-6 flex justify-end">
+            <button id="save-new-item-btn" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700">
+                Save Item to Inventory
+            </button>
+        </div>
+    </section>
+
+    <!-- Items Section -->
+    <section id="purchase-items-section" class="p-6 bg-white rounded-lg shadow-lg">
+        <h3 class="text-xl font-semibold text-gray-700 mb-4">Items Purchased</h3>
+        <div id="purchase-item-rows-container" class="space-y-3 sm:space-y-4">
+            <!-- Item Row Template (hidden by default, cloned by JS) -->
+            <div class="purchase-item-row purchase-item-row-template hidden flex flex-col sm:grid sm:grid-cols-12 gap-x-3 gap-y-2 items-stretch sm:items-center p-3 border rounded-md bg-gray-50">
+                <!-- Custom Item Select Dropdown (Adjusted to sm:col-span-4) -->
+                <div class="w-full sm:col-span-4 mb-2 sm:mb-0">
+                    <label class="block text-xs font-medium text-gray-600 purchase-item-custom-select-label">Item:</label>
+                    <div class="relative mt-1">
+                        <button type="button"
+                                class="purchase-item-custom-select-button relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                aria-haspopup="listbox" aria-expanded="false">
+                            <span class="block truncate purchase-item-custom-select-selected-text">-- Select Item --</span>
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" /></svg>
+                            </span>
+                        </button>
+                        <ul class="purchase-item-custom-select-options absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm hidden"
+                            tabindex="-1" role="listbox">
+                        </ul>
+                    </div>
+                    <input type="hidden" class="purchase-item-select-value" name="item_id_actual_value_row_X">
+                    <input type="hidden" class="purchase-item-gst-rate-hidden" value="0"> <!-- Hidden GST Rate -->
+                </div>
+
+                <!-- Qty, Buy Price, GST Amt, Taxable Value (Adjusted to sm:col-span-7 and internal grid to md:grid-cols-4) -->
+                <div class="w-full sm:col-span-7 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-2 mb-2 sm:mb-0 items-end">
+                    <div class="col-span-1">
+                        <label class="block text-xs font-medium text-gray-600">Qty:</label>
+                        <input type="number" name="item-quantity" min="1" value="1" class="purchase-item-quantity mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm">
+                    </div>
+                    <div class="col-span-1">
+                        <label class="block text-xs font-medium text-gray-600">Buy Price:</label>
+                        <input type="number" step="0.01" name="item-buying-price" class="purchase-item-buying-price mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm">
+                    </div>
+                    <div class="col-span-1"> <!-- NEW GST Amount field -->
+                        <label class="block text-xs font-medium text-gray-600">GST Amt:</label>
+                        <input type="text" name="item-gst-amount" readonly class="purchase-item-gst-amount mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm bg-gray-100">
+                    </div>
+                    <div class="col-span-1"> <!-- Renamed -->
+                        <label class="block text-xs font-medium text-gray-600">Taxable Val:</label>
+                        <input type="text" name="item-taxable-value" readonly class="purchase-item-taxable-value mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm bg-gray-100">
+                    </div>
+                </div>
+                <div class="w-full sm:col-span-1 flex justify-end sm:items-end pt-1 sm:pt-0">
+                    <button type="button" class="remove-purchase-item-btn text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button id="add-purchase-item-btn" type="button" class="mt-4 inline-flex items-center px-4 py-2 border border-dashed border-gray-400 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" /></svg>
+            Add Another Item
+        </button>
+    </section>
+
+    <!-- Totals Section -->
+    <section id="purchase-totals-section" class="p-6 bg-white rounded-lg shadow-lg">
+        <h3 class="text-xl font-semibold text-gray-700 mb-4">Summary</h3>
+        <div class="space-y-2">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-600">Total Taxable Value:</span>
+                <span id="purchase-subtotal-amount" class="font-semibold text-gray-800">₹0.00</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-600">Total GST Amount:</span>
+                <span id="purchase-gst-amount" class="font-semibold text-gray-800">₹0.00</span>
+            </div>
+            <hr class="my-2">
+            <div class="flex justify-between items-center text-2xl font-bold">
+                <span class="text-blue-600">Grand Total:</span>
+                <span id="purchase-grand-total-amount" class="text-blue-600">₹0.00</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Action Buttons -->
+    <footer class="mt-8 flex justify-end space-x-3 p-2">
+        <button id="clear-purchase-btn" type="button" class="px-6 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">Clear</button>
+        <button id="save-purchase-btn" type="button" class="px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700">Save Purchase</button>
+    </footer>
+</div>
+
+<!-- Success Modal/Popup -->
+<div id="purchase-success-popup" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center z-50 hidden transition-opacity duration-300">
+    <div id="purchase-success-popup-content" class="p-8 bg-white rounded-lg shadow-xl transform transition-all opacity-0 scale-95 w-full max-w-md text-center">
+        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+            <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+        </div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900 mt-4">Purchase Saved!</h3>
+        <div class="mt-2"><p class="text-sm text-gray-500">The purchase has been successfully recorded.</p></div>
+        <div class="mt-5"><button id="close-purchase-popup-btn" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700">OK</button></div>
+    </div>
+</div>

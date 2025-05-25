@@ -1,0 +1,26 @@
+/* components/sales/sales.css */
+
+/* Animation for the new buyer form reveal */
+#new-buyer-form.slide-down {
+    max-height: 500px; /* Adjust as needed */
+    opacity: 1;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, margin-top 0.5s ease-in-out;
+}
+
+#new-buyer-form {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0 !important; /* Override default mt-6 when hidden */
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out, margin-top 0.3s ease-out;
+}
+
+/* Animations for success popup */
+#success-popup.fade-in {
+    opacity: 1;
+}
+#success-popup.fade-in #success-popup-content {
+    transform: scale(1);
+    opacity: 1;
+}
