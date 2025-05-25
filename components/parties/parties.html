@@ -1,2 +1,123 @@
-<h2 class="text-xl font-bold mb-2">Parties</h2>
-<p>This is dummy content for the Parties tab.</p>
+<div id="parties-screen" class="p-2 md:p-4 max-w-6xl mx-auto">
+    <header class="mb-6 flex flex-col sm:flex-row justify-between items-center">
+        <h2 class="text-3xl font-bold text-gray-800 border-b sm:border-none pb-2 mb-4 sm:mb-0">Manage Parties</h2>
+        <button id="toggle-add-party-form-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-150 ease-in-out flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" id="add-party-btn-icon">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+            </svg>
+            <span id="add-party-btn-text">Add New Party</span>
+        </button>
+    </header>
+
+    <!-- Inline Add/Edit Party Form (CSS handles initial hidden state) -->
+    <section id="add-edit-party-form-section" class="form-section-hidden p-6 bg-blue-50 border border-blue-300 rounded-lg shadow-md mb-6">
+        <h3 class="text-xl font-semibold text-blue-700 mb-4" id="party-form-title">Add New Party</h3>
+        <form id="party-form" class="space-y-4">
+            <input type="hidden" id="party-id-edit" value="">
+            <input type="hidden" id="party-type-form" value="buyer"> <!-- buyer or seller -->
+
+            <div>
+                <label for="party-form-name" class="block text-sm font-medium text-gray-700">Party Name / Business Name:</label>
+                <input type="text" id="party-form-name" required class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="party-form-gstin" class="block text-sm font-medium text-gray-700">GSTIN (Optional):</label>
+                    <input type="text" id="party-form-gstin" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="party-form-address" class="block text-sm font-medium text-gray-700">Address:</label>
+                    <textarea id="party-form-address" rows="2" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="party-form-contact-name" class="block text-sm font-medium text-gray-700">Contact Person:</label>
+                    <input type="text" id="party-form-contact-name" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="party-form-contact-phone" class="block text-sm font-medium text-gray-700">Phone Number:</label>
+                    <input type="tel" id="party-form-contact-phone" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="party-form-contact-email" class="block text-sm font-medium text-gray-700">Email:</label>
+                    <input type="email" id="party-form-contact-email" class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+            </div>
+            <div class="pt-4 flex justify-end space-x-3">
+                <button type="submit" id="save-party-form-btn" class="px-6 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Save Party</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Tabs and Filters -->
+    <div class="mb-4 flex flex-col sm:flex-row justify-between items-center">
+        <div class="border-b border-gray-200 mb-4 sm:mb-0">
+            <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                <button id="tab-buyers" type="button" class="party-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-indigo-500 text-indigo-600" aria-current="page">
+                    Buyers
+                </button>
+                <button id="tab-sellers" type="button" class="party-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                    Sellers / Distributors
+                </button>
+            </nav>
+        </div>
+        <!-- Custom Date Added Filter Dropdown -->
+        <div class="relative text-sm party-date-added-filter-container">
+            <label for="party-date-added-filter-button" class="sr-only">Filter by Date Added</label>
+            <button type="button" id="party-date-added-filter-button"
+                    class="relative w-full sm:w-52 bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    aria-haspopup="listbox" aria-expanded="false">
+                <span class="block truncate" id="party-date-added-filter-selected-text">All Dates Added</span>
+                <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" /></svg>
+                </span>
+            </button>
+            <ul id="party-date-added-filter-options"
+                class="absolute z-20 right-0 mt-1 w-full sm:w-52 bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm hidden"
+                tabindex="-1" role="listbox">
+            </ul>
+            <input type="hidden" id="party-date-added-filter-value" value="all">
+        </div>
+    </div>
+
+    <!-- Party List Container -->
+    <div id="party-list-container" class="space-y-4">
+        <!-- Party Card Template (hidden, cloned by JS) -->
+        <div id="party-card-template" class="party-card hidden bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="p-4 cursor-pointer party-card-header hover:bg-gray-50 flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-semibold text-indigo-700 party-name">Party Name</h3>
+                    <p class="text-sm text-gray-600">
+                        GSTIN: <span class="font-medium party-gstin-summary">N/A</span> | Added: <span class="font-medium party-date-added">N/A</span>
+                    </p>
+                </div>
+                <svg class="h-6 w-6 text-gray-500 party-expand-icon transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+            <div class="party-details-content details-section-hidden p-4 border-t border-gray-200 bg-gray-50 space-y-3">
+                <h4 class="text-md font-semibold text-gray-700 mb-1">Full Details:</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                    <p><strong>GSTIN:</strong> <span class="party-gstin-detail">N/A</span></p>
+                    <p><strong>Address:</strong> <span class="party-address">N/A</span></p>
+                    <p><strong>Contact:</strong> <span class="party-contact-name">N/A</span></p>
+                    <p><strong>Phone:</strong> <span class="party-contact-phone">N/A</span></p>
+                    <p><strong>Email:</strong> <span class="party-contact-email">N/A</span></p>
+                    <p><strong>Date Added:</strong> <span class="party-date-added-detail">N/A</span></p>
+                </div>
+                <div class="mt-4 flex justify-end space-x-2">
+                    <button class="edit-party-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-lg text-sm flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg>
+                        Edit
+                    </button>
+                    <button class="delete-party-btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-3 rounded-lg text-sm flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p id="no-parties-message" class="hidden text-center text-gray-500 py-10">No parties found for this type. Click "Add New Party" to get started.</p>
+</div>

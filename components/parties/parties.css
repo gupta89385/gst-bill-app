@@ -1,0 +1,51 @@
+/* components/parties/parties.css */
+
+/* Inline Add/Edit Party Form visibility */
+.form-section-hidden {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-width: 0 !important;
+    transition: opacity 0.3s ease-out, max-height 0.4s ease-out, margin-bottom 0.3s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out, border-width 0.3s ease-out;
+}
+#add-edit-party-form-section.form-section-visible {
+    opacity: 1;
+    max-height: 1000px; /* Adjust if form is taller */
+    overflow: visible;
+    margin-bottom: 1.5rem !important; /* Tailwind's mb-6 */
+    padding-top: 1.5rem !important; /* Tailwind's p-6 */
+    padding-bottom: 1.5rem !important;
+    border-width: 1px !important;
+}
+
+/* Party Card Details Expansion visibility */
+.details-section-hidden {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out, border-top-width 0.3s ease-in-out;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-top-width: 0 !important;
+}
+.party-details-content.details-section-visible {
+    max-height: 1000px; /* Adjust if content is taller */
+    opacity: 1;
+    padding-top: 1rem !important;  /* Tailwind's p-4 */
+    padding-bottom: 1rem !important;
+    border-top-width: 1px !important;
+}
+
+/* Icon rotation for expand/collapse */
+.party-card-header .party-expand-icon.expanded {
+    transform: rotate(180deg);
+}
+
+/* Active Tab Styling */
+.party-tab.active-tab {
+    border-color: #4f46e5; /* indigo-600 */
+    color: #4f46e5; /* indigo-600 */
+}

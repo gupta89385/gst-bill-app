@@ -73,3 +73,8 @@
     transform: scale(1);
     opacity: 1;
 }
+
+#toast-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}

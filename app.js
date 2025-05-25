@@ -107,3 +107,26 @@ async function loadTab(name) {
     }
 }
 
+// Helper function for toast notifications
+let toastTimeout;
+function showToast(message, duration = 3000, isError = true) {
+    const toastElement = document.getElementById('toast-notification');
+    const toastMessageElement = document.getElementById('toast-message');
+    if (!toastElement || !toastMessageElement) return;
+
+    toastMessageElement.textContent = message;
+    toastElement.classList.remove('bg-green-600', 'bg-red-600'); // Remove previous color classes
+    if (isError) {
+        toastElement.classList.add('bg-red-600');
+    } else {
+        toastElement.classList.add('bg-green-600');
+    }
+
+    toastElement.classList.add('show');
+
+    clearTimeout(toastTimeout); // Clear any existing timeout
+    toastTimeout = setTimeout(() => {
+        toastElement.classList.remove('show');
+    }, duration);
+}
+
